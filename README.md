@@ -7,7 +7,7 @@ your standing rules, your processes and who does each step, the work in
 flight, your past work. Before the assistant drafts anything it reads your
 manual (`recall`); when you correct it, it passes your words along (`learn`),
 and Stet makes it a rule when you say it explicitly or say it twice. The same
-manual works in Claude, ChatGPT and DSH.
+manual serves Claude through sign-in and DSH through a key.
 
 ## Install
 
@@ -16,7 +16,7 @@ manual works in Claude, ChatGPT and DSH.
 2. Add the plugin to your DSH profile and start DSH with the key:
 
    ```sh
-   dsh plugin --profile web add github:jonasbu11/dsh-plugin-stet
+   dsh plugin --profile web add dsh-plugin-stet
    STET_ACCESS_KEY=stet_k_... dsh web
    ```
 
