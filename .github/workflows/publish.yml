@@ -1,0 +1,25 @@
+# Publishes to npm when a v<version> tag is pushed, through npm Trusted Publishing
+# (GitHub OIDC): no npm token is stored anywhere. The trusted publisher is set on
+# npmjs.com: package dsh-plugin-stet > Settings > Trusted Publisher > GitHub Actions,
+# owner jonasbu11, repository dsh-plugin-stet, workflow publish.yml.
+name: publish
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@^11.5.1
+      - name: Tag matches package.json
+        run: test "v$(node -p "require('./package.json').version")" = "${GITHUB_REF_NAME}"
+      - run: npm test
+      - run: npm publish --access public
