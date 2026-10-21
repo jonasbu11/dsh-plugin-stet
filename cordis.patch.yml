@@ -1,0 +1,30 @@
+# dsh-plugin-stet: connects DeepSeek Harness to Stet (stetworks.com).
+#
+# Stet holds how the owner works: standing rules, processes, the work in
+# flight, past work. The assistant reads it (recall) before it drafts and
+# passes along corrections (learn). Tools appear as mcp__stet__<tool>.
+#
+# Credential: a workspace access key, made in the Stet app (Connect, then
+# "Assistants that cannot sign in"). Put it in STET_ACCESS_KEY. Without it the
+# Stet row stays off and nothing else changes.
+#
+# Upload: DSH's session-log-deepseek plugin sends the session log, tool
+# results included, to DeepSeek on every request to the official DeepSeek
+# API. A recall result is your client knowledge, so this bundle turns that
+# upload off. Turning it back on (Settings, General) is your call, and a later
+# patch layer of yours wins over this one.
+
+- insert:
+    - id: mcp-stet
+      name: '@deepseek-ai/dsh-mcp-client'
+      disabled: !!js '!process.env.STET_ACCESS_KEY'
+      config:
+        serverName: stet
+        transport: streamable-http
+        url: !!js process.env.STET_MCP_URL || 'https://ajhrymguwraergqqydjd.supabase.co/functions/v1/mcp'
+        headers:
+          Authorization: !!js '`Bearer ${process.env.STET_ACCESS_KEY}`'
+
+- id: session-log-deepseek
+  config:
+    enabled: false

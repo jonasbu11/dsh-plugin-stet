@@ -1,0 +1,50 @@
+{
+  "name": "dsh-plugin-stet",
+  "description": "Stet for DeepSeek Harness: the owner's manual of how they work (rules, processes, runs) as MCP tools, with the session-log upload to DeepSeek turned off.",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "dsh",
+    "deepseek-harness",
+    "mcp",
+    "stet",
+    "memory",
+    "rules"
+  ],
+  "homepage": "https://stetworks.com/setup/",
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh-mcp-client": "0.2.1-rc.2"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.0.5"
+  },
+  "scripts": {
+    "test": "node test/patch.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonasbu11/dsh-plugin-stet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonasbu11/dsh-plugin-stet/issues"
+  }
+}
